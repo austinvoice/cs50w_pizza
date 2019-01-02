@@ -7,12 +7,19 @@ from .models import Category, Type
 
 # Create your views here.
 
-class IndexView(generic.ListView):
-    template_name = 'orders/index.html'
+def index(request):
+    category_list = Category.objects.order_by('-pk').reverse()[:8]
+    context = {'category_list': category_list}
+    return render(request, 'orders/index.html', context)
 
-    def get_queryset(self):
-        """Return the full set of categories"""
-        return Category.objects.all()
+# class IndexView(generic.ListView):
+#     template_name = 'orders/index.html'
+#
+#     def get_queryset(self):
+#         """Return the full set of categories"""
+#         category_list = Category.objects.all()
+#         output = ', '.join([q.category_text for q in category_list])
+#         return HttpResponse(output)
 
 class DetailView(generic.DetailView):
     template_name = 'orders/detail.html'

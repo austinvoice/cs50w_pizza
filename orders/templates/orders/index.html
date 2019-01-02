@@ -1,22 +1,24 @@
 {% extends "orders/base.html" %}
 
 {% block title %}
-    Menu
+    Pinochio's Pizza
 {% endblock %}
 
 {% block body %}
     <h1>Pinocchio's Pizza & Subs</h1>
     <h2>
-      74 Winthrop Street<p>
-      Harvard Square<p>
-      617-876-4897<p>
+      74 Winthrop Street<br>
+      Harvard Square<br>
+      617-876-4897<br><br>
     </h2>
 
+  <h2>
     <ul>
-    {% for category in Category %}
-      <li><a href="/orders/{{category.id }}/"> {{ category.category_text }}</a>
+  {% for category in category_list %}
+    <li><a href="{{ category.id }}/">{{ category.category_text }}</a>
   </li>
-    {% endfor %}
+  {% endfor %}
     </ul>
+  </h2>
 
 {% endblock %}

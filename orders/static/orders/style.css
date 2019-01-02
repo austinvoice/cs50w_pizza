@@ -1,11 +1,12 @@
 /* Set font family */
 body {
     font-family: sans-serif;
+    left: 30px
 }
 
 /* Set font color */
 li a {
-  color: crimson;
+  color: black;
 }
 
 /* Background file  */

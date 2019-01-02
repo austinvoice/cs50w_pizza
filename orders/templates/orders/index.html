@@ -1,0 +1,22 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Menu
+{% endblock %}
+
+{% block body %}
+    <h1>Pinocchio's Pizza & Subs</h1>
+    <h2>
+      74 Winthrop Street<p>
+      Harvard Square<p>
+      617-876-4897
+    </h2>
+
+    <!-- {% for flight in flights %}
+        <li>
+            <a href="{% url 'flight' flight.id %}">
+                Flight #{{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}
+            </a>
+        </li> -->
+    {% endfor %}
+{% endblock %}

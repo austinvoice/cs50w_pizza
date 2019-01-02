@@ -16,7 +16,14 @@ Including another URLconf
 from django.contrib import admin
 from django.urls import include, path
 
+from orders import views
+
+app_name = 'orders'
+
 urlpatterns = [
-    path("", include("orders.urls")),
     path("admin/", admin.site.urls),
+    path('', views.index, name='index'),
+    path('<int:category_id>/', views.detail, name='detail'),
+    path('<int:category_id>/order/', views.order, name='order'),
+    # path('<int:category_id>/results/', views.results(), name='results'),
 ]

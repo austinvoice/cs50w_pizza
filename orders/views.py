@@ -13,33 +13,55 @@ def index(request):
     context = {'category_list': category_list}
     return render(request, 'orders/index.html', context)
 
-# class IndexView(generic.ListView):
-#     template_name = 'orders/index.html'
-#
-#     def get_queryset(self):
-#         """Return the full set of categories"""
-#         category_list = Category.objects.all()
-#         output = ', '.join([q.category_text for q in category_list])
-#         return HttpResponse(output)
-
-class DetailView(generic.DetailView):
-    template_name = 'orders/detail.html'
-
-    def get_queryset(self):
-        """Return the full set of categories"""
-        return Category.objects.all()
-
-class ResultsView(generic.DetailView):
-    template_name = 'orders/results.html'
-
-    def get_queryset(self):
-        """Return the full set of categories"""
-        return Category.objects.all()
-
-# Raise 404 if page does not exist
 def detail(request, category_id):
     try:
-        category = Category.objects.get(pk=category_id)
+        category=Category.objects.get(pk=category_id)
     except Category.DoesNotExist:
         raise Http404("Category does not exist.")
     return render(request, 'orders/detail.html', {'category': category})
+
+def order(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    try:
+        selected_type = category.type_set.get(pk=request.POST['type'])
+    except (KeyError, Type.DoesNotExist):
+        # Redisplay the order form.
+        return render(request, 'orders/detail.html', {
+            'category': category,
+            'error_message': "You didn't select a choice.",
+    })
+    else:
+        selected_type.orders += 1
+        selected_type.save()
+        # Return HttpResponseRedirect after POST data to keep
+        # from posting twice.
+        return HttpResponseRedirect(reverse('order', args=(category.id,)))
+
+# def detail(request, category_id):
+#     category = get_object_or_404(Category, pk=category_id)
+#     return render(request, 'orders/detail.html', {'category': category})
+
+# def results(request, category_id):
+#     category = get_object_or_404(Category, pk=category_id)
+#     return render(request, 'orders/detail.html', {'category': category})
+
+# class IndexView(generic.ListView):
+#     template_name = 'orders/index.html'
+#     context_object_name = 'category_list'
+#
+#     def get_queryset(self):
+#         """Return the full set of categories"""
+#         return Category.objects.order_by('-pk').reverse()[:8]
+#         # category_list = Category.objects.all()
+#         # output = ', '.join([q.category_text for q in category_list])
+#         # return HttpResponse(output)
+#
+# class DetailView(generic.DetailView):
+#     model = Category
+#     template_name = 'orders/detail.html'
+#
+# class ResultsView(generic.DetailView):
+#     model = Category
+#     template_name = 'orders/results.html'
+
+# Raise 404 if page does not exist

@@ -37,6 +37,7 @@ class Type(models.Model):
     category = models.ForeignKey(Category, on_delete=models.CASCADE)
     type_text = models.CharField(max_length=200)
     price = models.DecimalField(decimal_places=2, max_digits=5)
+    orders = models.IntegerField(default=0)
 
     # Return object on query
     def __str__(self):

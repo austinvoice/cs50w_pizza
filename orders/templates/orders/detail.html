@@ -1,7 +1,22 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Pinochio's Pizza | Order
+{% endblock %}
+
+{% block body %}
+
 <h1>{{ category.category_text }}</h1>
 
-<ul>
+{% if error_message %}<p><strong>{{ error_message }}</strong></p>{% endif %}
+
+<form action="{% url 'order' category.id %}" method="post">
+{% csrf_token %}
 {% for type in category.type_set.all %}
-    <li>{{ type.type_text }}</li>
+    <input type="radio" name="type" id="choice{{ forloop.counter }}" value="{{ type.id }}">
+    <label for="type{{ forloop.counter }}">{{ type.type_text }}</label><br>
 {% endfor %}
-</ul>
+<br><input type="submit" value="Order">
+</form>
+
+{% endblock %}

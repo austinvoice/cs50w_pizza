@@ -9,14 +9,14 @@
     <h2>
       74 Winthrop Street<p>
       Harvard Square<p>
-      617-876-4897
+      617-876-4897<p>
     </h2>
 
-    <!-- {% for flight in flights %}
-        <li>
-            <a href="{% url 'flight' flight.id %}">
-                Flight #{{ flight.id }}: {{ flight.origin }} to {{ flight.destination }}
-            </a>
-        </li> -->
+    <ul>
+    {% for category in Category %}
+      <li><a href="/orders/{{category.id }}/"> {{ category.category_text }}</a>
+  </li>
     {% endfor %}
+    </ul>
+
 {% endblock %}

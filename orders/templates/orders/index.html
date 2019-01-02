@@ -14,11 +14,15 @@
 
   <h2>
     <ul>
+  {% if category_list %}
   {% for category in category_list %}
-    <li><a href="{{ category.id }}/">{{ category.category_text }}</a>
+    <li><a href="/{{ category.id }}/">{{ category.category_text }}</a>
   </li>
   {% endfor %}
     </ul>
+  {% else %}
+    <p>No menu items are available.</p>
   </h2>
+  {% endif %}
 
 {% endblock %}

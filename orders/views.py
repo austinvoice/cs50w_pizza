@@ -8,6 +8,7 @@ from .models import Category, Type
 # Create your views here.
 
 def index(request):
+    # Create list of categories for home page orders
     category_list = Category.objects.order_by('-pk').reverse()[:8]
     context = {'category_list': category_list}
     return render(request, 'orders/index.html', context)
@@ -35,22 +36,10 @@ class ResultsView(generic.DetailView):
         """Return the full set of categories"""
         return Category.objects.all()
 
-
-# def detail(request, category_id):
-#     try:
-#         category = Category.objects.get(pk=category_id)
-#     except Category.DoesNotExist:
-#         raise Http404("Category does not exist.")
-#     return render(request, 'orders/detail.html', {category': category})
-
-
-# def index(request):
-#     return HttpResponse("Project 3: TODO")
-
-# class IndexView(generic.ListView):
-#     template_name = 'orders/index.html'
-#     context_object_name = 'category_list'
-#
-#     def get_queryset(self):
-#         """Return categories."""
-#         return Category.objects.all()
+# Raise 404 if page does not exist
+def detail(request, category_id):
+    try:
+        category = Category.objects.get(pk=category_id)
+    except Category.DoesNotExist:
+        raise Http404("Category does not exist.")
+    return render(request, 'orders/detail.html', {'category': category})

@@ -25,5 +25,5 @@ urlpatterns = [
     path('', views.index, name='index'),
     path('<int:category_id>/', views.detail, name='detail'),
     path('<int:category_id>/order/', views.order, name='order'),
-    # path('<int:category_id>/results/', views.results(), name='results'),
+    path('<int:category_id>/results/', views.results, name='results'),
 ]

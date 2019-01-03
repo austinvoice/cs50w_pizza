@@ -29,21 +29,22 @@ def order(request, category_id):
         return render(request, 'orders/detail.html', {
             'category': category,
             'error_message': "You didn't select a choice.",
-    })
+            })
     else:
         selected_type.orders += 1
         selected_type.save()
         # Return HttpResponseRedirect after POST data to keep
         # from posting twice.
-        return HttpResponseRedirect(reverse('order', args=(category.id,)))
+        return HttpResponseRedirect(reverse('results', args=(category.id,)))
 
 # def detail(request, category_id):
 #     category = get_object_or_404(Category, pk=category_id)
 #     return render(request, 'orders/detail.html', {'category': category})
 
-# def results(request, category_id):
-#     category = get_object_or_404(Category, pk=category_id)
-#     return render(request, 'orders/detail.html', {'category': category})
+def results(request, category_id):
+    category = get_object_or_404(Category, pk=category_id)
+    return render(request, 'orders/results.html', {'category': category})
+
 
 # class IndexView(generic.ListView):
 #     template_name = 'orders/index.html'

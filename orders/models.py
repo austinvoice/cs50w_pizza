@@ -4,6 +4,10 @@ from django.db import models
 from django.utils import timezone
 
 # Create your models here.
+# Toppings one to many
+class Topping(models.Model):
+    topping_text = models.CharField(max_length=100, primary_key=True)
+    pass
 
 # Define major categories
 class Category(models.Model):
@@ -23,6 +27,8 @@ class Category(models.Model):
 
     category_text = models.CharField(max_length=200)
     pub_date = models.DateTimeField('date published')
+    # For pizza, many topping options
+    toppings = models.ManyToManyField(Topping)
 
     # select new items custom method
     def was_published_recently(self):
@@ -42,3 +48,12 @@ class Type(models.Model):
     # Return object on query
     def __str__(self):
         return self.type_text
+
+    # Calculate total order value
+    def order_value(self):
+        value = self.price * self.orders
+        return value
+
+# Shopping Cart to track of items ordered
+class Cart (models.Model):
+    items = models.ForeignKey(Type, on_delete=models.CASCADE)

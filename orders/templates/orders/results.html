@@ -1,0 +1,23 @@
+{% extends "orders/base.html" %}
+
+{% block title %}
+    Pinocchio's Pizza | Review
+{% endblock %}
+
+{% block body %}
+
+<h1>{{ category.category_text }}</h1>
+
+<ul>
+{% for type in category.type_set.all %}
+  <li>{{ type.type_text }} -- {{ type.orders }} order{{ type.orders|pluralize}} -- Total ${{ type.order_value }}</li>
+{% endfor %}
+</ul>
+
+<h2>${{ type.order_value }}</h2>
+
+<h2><a href="{% url 'index' %}">Order more?</a></h2>
+
+<h2><a href="{% url 'index' %}">Home</a></h2>
+
+{% endblock %}

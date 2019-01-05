@@ -66,3 +66,14 @@ def results(request, category_id):
 #     template_name = 'orders/results.html'
 
 # Raise 404 if page does not exist
+
+# # TODO:
+    # 1. Add toppings
+    # 2. Enable login
+    # 3. Show total order
+    # 4. Migrate to generic views
+    # 5. Fix namespace issues
+    # 6. Add checkout
+    # 7. Migrate DB to postgres
+    # 8. Migrate site to AWS
+    # 9. Add s/l options

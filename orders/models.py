@@ -53,6 +53,12 @@ class Type(models.Model):
     def order_value(self):
         value = self.price * self.orders
         return value
+    #
+    # # Calcul;ate total order size
+    # def total_order(self):
+    #     for i in range(20):
+    #         value += self.price(pk=i) * self.orders(pk=i)
+    #     return value
 
 # Shopping Cart to track of items ordered
 class Cart (models.Model):
